@@ -12,7 +12,7 @@ bun add elysia-basic-auth
 
 ```ts
 import { Elysia } from 'elysia';
-import basicAuth from 'elysia-basic-auth';
+import { basicAuth } from 'elysia-basic-auth';
 
 new Elysia()
   .use(
