@@ -1,0 +1,35 @@
+{
+  "name": "elysia-basic-auth",
+  "version": "1.0.0",
+  "description": "Basic auth for Elysia.",
+  "author": "Norbert Elter <norbert.elter0@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/itsyoboieltr/elysia-basic-auth#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsyoboieltr/elysia-basic-auth.git"
+  },
+  "bugs": "https://github.com/itsyoboieltr/elysia-basic-auth/issues",
+  "keywords": [
+    "bun",
+    "elysia"
+  ],
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "publish": "bumpp && npm publish",
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "peerDependencies": {
+    "elysia": ">= 0.6.16"
+  },
+  "devDependencies": {
+    "bumpp": "9.2.0",
+    "bun-types": "latest",
+    "elysia": "0.6.16"
+  }
+}
