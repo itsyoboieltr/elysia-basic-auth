@@ -35,7 +35,8 @@ export const basicAuth = (config: BasicAuthConfig) =>
       if (
         !ctx.isAuthed &&
         !config.noErrorThrown &&
-        !config.exclude?.includes(ctx.path)
+        !config.exclude?.includes(ctx.path) &&
+        ctx.request.method !== 'OPTIONS'
       )
         throw new BasicAuthError(config.errorMessage ?? 'Unauthorized');
     })
