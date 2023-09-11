@@ -1,4 +1,5 @@
 import Elysia from 'elysia';
+import { minimatch } from 'minimatch';
 
 export class BasicAuthError extends Error {
   constructor(public message: string) {
@@ -24,18 +25,20 @@ export const basicAuth = (config: BasicAuthConfig) =>
     .addError({ BASIC_AUTH_ERROR: BasicAuthError })
     .derive((ctx) => {
       const authorization = ctx.headers.authorization;
-      if (!authorization) return { isAuthed: false };
+      if (!authorization)
+        return { basicAuth: { isAuthed: false, username: '' } };
       const [username, password] = atob(authorization.split(' ')[1]).split(':');
-      const isAuthed = config.users.some(
+      const user = config.users.find(
         (user) => user.username === username && user.password === password
       );
-      return { isAuthed };
+      if (!user) return { basicAuth: { isAuthed: false, username: '' } };
+      return { basicAuth: { isAuthed: true, username: user.username } };
     })
     .onTransform((ctx) => {
       if (
-        !ctx.isAuthed &&
+        !ctx.basicAuth.isAuthed &&
         !config.noErrorThrown &&
-        !config.exclude?.includes(ctx.path) &&
+        !isPathExcluded(ctx.path, config.exclude) &&
         ctx.request.method !== 'OPTIONS'
       )
         throw new BasicAuthError(config.errorMessage ?? 'Unauthorized');
@@ -52,3 +55,11 @@ export const basicAuth = (config: BasicAuthConfig) =>
         });
       }
     });
+
+export const isPathExcluded = (path: string, excludedPatterns?: string[]) => {
+  if (!excludedPatterns) return false;
+  for (const pattern of excludedPatterns) {
+    if (minimatch(path, pattern)) return true;
+  }
+  return false;
+};
