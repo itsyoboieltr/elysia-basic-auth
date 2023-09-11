@@ -20,7 +20,7 @@ new Elysia()
       users: [{ username: 'admin', password: 'admin' }],
       realm: '',
       errorMessage: 'Unauthorized',
-      exclude: [],
+      exclude: ['public/**'],
       noErrorThrown: false,
     })
   )
@@ -40,9 +40,36 @@ interface BasicAuthUser {
 }
 ```
 
-```
+## Configuration
 
-## License
+### users
 
-MIT
-```
+`BasicAuthUser[]`
+
+A list of users valid for authentication, each user must have a username and password.
+
+### realm
+
+`string`
+
+The realm used for basic authentication.
+
+### errorMessage
+
+`string`
+
+Default: `Unauthorized`
+
+The response body for unauthorized requests.
+
+### exclude
+
+`string[]`
+
+An array of glob patterns to exclude from authentication.
+
+### noErrorThrown
+
+`boolean`
+
+A boolean that determines whether or not to throw an error when authentication fails.
