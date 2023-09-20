@@ -1,6 +1,6 @@
 {
   "name": "elysia-basic-auth",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Basic auth for Elysia.",
   "author": "Norbert Elter <norbert.elter0@gmail.com>",
   "license": "MIT",
@@ -24,11 +24,11 @@
     "start": "bun run src/index.ts"
   },
   "peerDependencies": {
-    "elysia": ">= 0.7.0"
+    "elysia": ">= 0.7.1"
   },
   "devDependencies": {
     "bun-types": "latest",
-    "elysia": "0.7.0"
+    "elysia": "0.7.1"
   },
   "dependencies": {
     "minimatch": "9.0.3"
