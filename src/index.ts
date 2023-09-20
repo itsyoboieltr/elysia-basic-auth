@@ -22,7 +22,7 @@ export interface BasicAuthConfig {
 
 export const basicAuth = (config: BasicAuthConfig) =>
   new Elysia({ name: 'basic-auth', seed: config })
-    .addError({ BASIC_AUTH_ERROR: BasicAuthError })
+    .error({ BASIC_AUTH_ERROR: BasicAuthError })
     .derive((ctx) => {
       const authorization = ctx.headers.authorization;
       if (!authorization)
