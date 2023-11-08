@@ -1,6 +1,6 @@
 {
   "name": "elysia-basic-auth",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Basic auth for Elysia.",
   "author": "Norbert Elter <norbert.elter0@gmail.com>",
   "license": "MIT",
