@@ -24,7 +24,8 @@ export const basicAuth = (config: BasicAuthConfig) =>
   new Elysia({ name: 'basic-auth', seed: config })
     .error({ BASIC_AUTH_ERROR: BasicAuthError })
     .derive((ctx) => {
-      const authorization = ctx.headers.authorization;
+      // in the case of elysia start event, ctx.headers is undefined
+      const authorization = ctx.headers?.authorization;
       if (!authorization)
         return { basicAuth: { isAuthed: false, username: '' } };
       const [username, password] = atob(authorization.split(' ')[1]).split(':');
@@ -38,6 +39,7 @@ export const basicAuth = (config: BasicAuthConfig) =>
       if (
         !ctx.basicAuth.isAuthed &&
         !config.noErrorThrown &&
+        ctx.path !== undefined && // handle elysia start event when ctx.path is undefined
         !isPathExcluded(ctx.path, config.exclude) &&
         ctx.request.method !== 'OPTIONS'
       )
